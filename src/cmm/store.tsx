@@ -14,19 +14,23 @@ interface AuthAction extends AnyAction {
 }
 
 const initialState: AuthState = {
-  accessToken: '',
-  refreshToken: '',
+  accessToken: localStorage.getItem('accessToken') || '',
+  refreshToken: localStorage.getItem('refreshToken') || '',
 };
 
 const reducer = (state: AuthState = initialState, action: AuthAction) => {
   switch (action.type) {
     case 'LOGIN':
+      localStorage.setItem('accessToken', action.payload?.accessToken ?? '');
+      localStorage.setItem('refreshToken', action.payload?.refreshToken ?? '');
       return {
         ...state,
         accessToken: action.payload?.accessToken ?? '',
         refreshToken: action.payload?.refreshToken ?? '',
       };
     case 'LOGOUT':
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
       return initialState;
     default:
       return state;
