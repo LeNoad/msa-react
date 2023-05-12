@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import axios from "axios";
 import { useDispatch } from 'react-redux';
-import { LoginAction } from "./LoginAction"
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { LoginAction } from "../Action/LoginAction";
+import { useSelector } from "react-redux";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -14,17 +13,18 @@ export const Login = () => {
       userPassword: userPassword,
     }
     axios.post("http://192.168.0.76:8080/api/authorize", data).then((response: any) => {
-      const { accessToken, refreshToken } = response.data.result.jwtTokenDto;
+      const { accessToken, refreshToken, user } = response.data.result.jwtTokenDto;
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
-      dispatch(LoginAction(accessToken, refreshToken));
+      localStorage.setItem("user", user);
+      dispatch(LoginAction(accessToken, refreshToken, user));
       navigator("/token")
     })
   }
 
   return (
     <>
-      <button onClick={() => onLogin("asdasd2424", "123456")}>로그인</button>
+      <button onClick={() => onLogin("test", "123456")}>로그인</button>
     </>
   );
 }
