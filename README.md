@@ -2,7 +2,7 @@
 
 ## URI
 1. localhost:3000/ => 로그인
-2. localhost:3000/token => redux 토큰값 확인
+2. localhost:3000/token => 토큰 갱신, 로그 아웃, 테스트 API 대시보드
 3. localhost:3000/test => Material React Table 테스트를 위한 API 및 CORS, TOKEN 확인
 ## 유저 시나리오 
 1. 로그인 후 발급된 accessToken, refreshToken으로 React에서 redux에 저장
