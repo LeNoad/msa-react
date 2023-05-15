@@ -11,10 +11,10 @@ export const MaterialReactTableTest =() => {
     const accessToken = useSelector((state:any) => state.accessToken);
     const userIdxRef = useRef<any>();
     useEffect(() => {
-        axios.post("http://192.168.0.76:8080/api/selectAllUser", {
+        axios.post("http://192.168.0.76:8080/api/selectAllUser", {}, {
             headers: {
-                Authorization: `bearer ${accessToken}`
-            }
+                'Authorization' : `bearer ${accessToken}`
+            },
         }).then((data:any) => {
             setRows(data.data.result.userList);
         })
@@ -68,13 +68,14 @@ export const MaterialReactTableTest =() => {
         
     ], []);
     const initalState = {
-        /* grouping: ['userRole'], */
+        grouping: ['userRole']
     }
  
     const handleSaveRow: MaterialReactTableProps<any>['onEditingRowSave'] =
       async ({ exitEditingMode, row, values }) => {
         rows[row.index] = values;
         setRows([...rows]);
+        console.log(rows[row.index])
         exitEditingMode(); //required to exit editing mode
     };
     return (
